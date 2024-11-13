@@ -33,7 +33,10 @@ def post_detail(request, pk):
 
 def category_posts(request, category_slug):
     template = "blog/category.html"
-    category = get_object_or_404(
-        Category, slug=category_slug, is_published=True
-    )
-    return render(request, template, {"category": category})
+    category = get_object_or_404(Category, slug=category_slug, is_published=True)
+    post_list = Post.objects.filter(
+        category=category,
+        is_published=True,
+        pub_date__lte=timezone.now()
+    ).order_by("-pub_date")
+    return render(request, template, {"category": category, "post_list": post_list})
