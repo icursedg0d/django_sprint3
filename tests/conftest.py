@@ -15,7 +15,10 @@ except RuntimeError:
     registered_apps = set(app.name for app in apps.get_app_configs())
     need_apps = {"blog": "blog", "pages": "pages"}
     if not set(need_apps.values()).intersection(registered_apps):
-        need_apps = {"blog": "blog.apps.BlogConfig", "pages": "pages.apps.PagesConfig"}
+        need_apps = {
+            "blog": "blog.apps.BlogConfig",
+            "pages": "pages.apps.PagesConfig",
+        }
 
     for need_app_name, need_app_conf_name in need_apps.items():
         if need_app_conf_name not in registered_apps:
@@ -50,7 +53,9 @@ def post_context_key(user_client, post_with_published_location):
         "существует и отображается в соответствии с заданием."
     )
     try:
-        post_response = user_client.get(f"/posts/{post_with_published_location.id}/")
+        post_response = user_client.get(
+            f"/posts/{post_with_published_location.id}/"
+        )
     except Exception:
         raise AssertionError(check_post_page_msg)
     assert post_response.status_code == HTTPStatus.OK, check_post_page_msg
@@ -59,7 +64,9 @@ def post_context_key(user_client, post_with_published_location):
         if isinstance(val, Post):
             post_key = key
             break
-    assert post_key, "Убедитесь, что в контекст страницы поста передан объект поста."
+    assert (
+        post_key
+    ), "Убедитесь, что в контекст страницы поста передан объект поста."
     return post_key
 
 
@@ -88,7 +95,10 @@ def main_page_post_list_context_key(mixer, user_client):
     temp_category = mixer.blend("blog.Category", is_published=True)
     temp_location = mixer.blend("blog.Location", is_published=True)
     temp_post = mixer.blend(
-        "blog.Post", is_published=True, location=temp_location, category=temp_category
+        "blog.Post",
+        is_published=True,
+        location=temp_location,
+        category=temp_category,
     )
     page_load_err_msg = (
         "Убедитесь, что главная страница существует и отображается "
@@ -117,7 +127,10 @@ def category_page_post_list_context_key(mixer, user_client):
     temp_category = mixer.blend("blog.Category", is_published=True)
     temp_location = mixer.blend("blog.Location", is_published=True)
     temp_post = mixer.blend(
-        "blog.Post", is_published=True, category=temp_category, location=temp_location
+        "blog.Post",
+        is_published=True,
+        category=temp_category,
+        location=temp_location,
     )
     page_load_err_msg = (
         "Убедитесь, что страница категории существует и отображается "
@@ -149,7 +162,9 @@ class _TestModelAttrs:
 
     @property
     def model(self):
-        raise NotImplementedError("Override this property in inherited test class")
+        raise NotImplementedError(
+            "Override this property in inherited test class"
+        )
 
     def get_parameter_display_name(self, param):
         return param
@@ -161,7 +176,8 @@ class _TestModelAttrs:
         ), f"В модели `{model_name}` укажите атрибут `{field}`."
         model_field = self.model._meta.get_field(field)
         assert isinstance(model_field, type), (
-            f"В модели `{model_name}` у атрибута `{field}` " f"укажите тип `{type}`."
+            f"В модели `{model_name}` у атрибута `{field}` "
+            f"укажите тип `{type}`."
         )
         for param, value_param in params.items():
             display_name = self.get_parameter_display_name(param)

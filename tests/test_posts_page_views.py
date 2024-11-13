@@ -43,10 +43,19 @@ def test_mixed_published(
 
 
 @pytest.mark.parametrize(
-    "key", ["title", ("category", "title"), ("category", "slug"), ("location", "name")]
+    "key",
+    [
+        "title",
+        ("category", "title"),
+        ("category", "slug"),
+        ("location", "name"),
+    ],
 )
 def test_check_context_keys(
-    key, user_client, posts_with_published_locations, main_page_post_list_context_key
+    key,
+    user_client,
+    posts_with_published_locations,
+    main_page_post_list_context_key,
 ):
     response = user_client.get("/")
     context_post_list = response.context.get(main_page_post_list_context_key)
@@ -65,7 +74,9 @@ def test_check_context_keys(
 
 
 def test_category_unpublished(
-    user_client, posts_with_unpublished_category, main_page_post_list_context_key
+    user_client,
+    posts_with_unpublished_category,
+    main_page_post_list_context_key,
 ):
     response = user_client.get("/")
     context_post_list = response.context.get(main_page_post_list_context_key)
@@ -88,7 +99,9 @@ def test_pub_date_later_today(
 
 
 def test_posts_with_published_location(
-    user_client, posts_with_published_locations, main_page_post_list_context_key
+    user_client,
+    posts_with_published_locations,
+    main_page_post_list_context_key,
 ):
     response = user_client.get("/")
     context_post_list = response.context.get(main_page_post_list_context_key)
@@ -101,7 +114,9 @@ def test_posts_with_published_location(
 
 
 def test_posts_with_unpublished_locations(
-    user_client, posts_with_unpublished_locations, main_page_post_list_context_key
+    user_client,
+    posts_with_unpublished_locations,
+    main_page_post_list_context_key,
 ):
     response = user_client.get("/")
     context_post_list = response.context.get(main_page_post_list_context_key)
@@ -113,7 +128,9 @@ def test_posts_with_unpublished_locations(
 
 
 def test_many_posts_on_main_page(
-    user_client, many_posts_with_published_locations, main_page_post_list_context_key
+    user_client,
+    many_posts_with_published_locations,
+    main_page_post_list_context_key,
 ):
     response = user_client.get("/")
     context_post_list = response.context.get(main_page_post_list_context_key)

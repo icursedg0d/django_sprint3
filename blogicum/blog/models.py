@@ -16,7 +16,10 @@ class Post(models.Model):
         User, on_delete=models.CASCADE, verbose_name="Автор публикации"
     )
     location = models.ForeignKey(
-        "Location", on_delete=models.SET_NULL, null=True, verbose_name="Местоположение"
+        "Location",
+        on_delete=models.SET_NULL,
+        null=True,
+        verbose_name="Местоположение",
     )
     category = models.ForeignKey(
         "Category",
@@ -30,7 +33,9 @@ class Post(models.Model):
         verbose_name="Опубликовано",
         help_text="Снимите галочку, чтобы скрыть публикацию.",
     )
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Добавлено")
+    created_at = models.DateTimeField(
+        auto_now_add=True, verbose_name="Добавлено"
+    )
 
     class Meta:
         verbose_name = "публикация"
@@ -53,7 +58,9 @@ class Category(models.Model):
         verbose_name="Опубликовано",
         help_text="Снимите галочку, чтобы скрыть публикацию.",
     )
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Добавлено")
+    created_at = models.DateTimeField(
+        auto_now_add=True, verbose_name="Добавлено"
+    )
 
     class Meta:
         verbose_name = "категория"
@@ -70,7 +77,9 @@ class Location(models.Model):
         verbose_name="Опубликовано",
         help_text="Снимите галочку, чтобы скрыть публикацию.",
     )
-    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Добавлено")
+    created_at = models.DateTimeField(
+        auto_now_add=True, verbose_name="Добавлено"
+    )
 
     class Meta:
         verbose_name = "местоположение"

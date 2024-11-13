@@ -21,7 +21,11 @@ pytestmark = [
     [
         ("title", CharField, {"max_length": 256}),
         ("text", TextField, {}),
-        ("pub_date", DateTimeField, {"auto_now": False, "auto_now_add": False}),
+        (
+            "pub_date",
+            DateTimeField,
+            {"auto_now": False, "auto_now_add": False},
+        ),
         ("author", ForeignKey, {"null": False}),
         ("location", ForeignKey, {"null": True}),
         ("category", ForeignKey, {"null": True, "blank": False}),

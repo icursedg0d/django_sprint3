@@ -86,18 +86,22 @@ def test_posts_page_pk_check_context_keys(
             else:
                 attr_val = attr_val.replace("\n", "<br>")
         assert attr_val in html, (
-            "На странице публикации " f"не использовано значение атрибута `{key}`."
+            "На странице публикации "
+            f"не использовано значение атрибута `{key}`."
         )
 
 
 def test_posts_page_pk_unpublished_post(user_client, unpublished_post):
     response = user_client.get(f"/posts/{unpublished_post.id}/")
     assert response.status_code == HTTPStatus.NOT_FOUND, (
-        "Убедитесь, что страница поста, снятого с публикации, " "возвращает статус 404."
+        "Убедитесь, что страница поста, снятого с публикации, "
+        "возвращает статус 404."
     )
 
 
-def test_posts_page_pk_pub_date_later_today(user_client, post_with_future_date):
+def test_posts_page_pk_pub_date_later_today(
+    user_client, post_with_future_date
+):
     response = user_client.get(f"/posts/{post_with_future_date.id}/")
     assert response.status_code == HTTPStatus.NOT_FOUND, (
         "Убедитесь, что если для поста дата публикации установлена в будущем, "

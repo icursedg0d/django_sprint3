@@ -20,19 +20,26 @@ def unpublished_locations(mixer):
 
 @pytest.fixture
 def posts_with_unpublished_category(mixer):
-    return mixer.cycle(N_TEST_POSTS).blend("blog.Post", category__is_published=False)
+    return mixer.cycle(N_TEST_POSTS).blend(
+        "blog.Post", category__is_published=False
+    )
 
 
 @pytest.fixture
 def posts_with_future_date(mixer):
     date_later_now = (
-        datetime.now(tz=pytz.UTC) + timedelta(days=date) for date in range(1, 11)
+        datetime.now(tz=pytz.UTC) + timedelta(days=date)
+        for date in range(1, 11)
     )
-    return mixer.cycle(N_TEST_POSTS).blend("blog.Post", pub_date=date_later_now)
+    return mixer.cycle(N_TEST_POSTS).blend(
+        "blog.Post", pub_date=date_later_now
+    )
 
 
 @pytest.fixture
-def posts_with_published_locations(mixer, published_locations, published_category):
+def posts_with_published_locations(
+    mixer, published_locations, published_category
+):
     return mixer.cycle(N_TEST_POSTS).blend(
         "blog.Post",
         category=published_category,
@@ -64,7 +71,9 @@ def posts_with_published_locations_from_another_published_category(
 
 
 @pytest.fixture
-def posts_with_unpublished_locations(mixer, published_category, unpublished_locations):
+def posts_with_unpublished_locations(
+    mixer, published_category, unpublished_locations
+):
     return mixer.cycle(N_TEST_POSTS).blend(
         "blog.Post",
         location=mixer.sequence(*unpublished_locations),
@@ -108,14 +117,18 @@ def post_with_unpublished_category(mixer, unpublished_category):
 
 
 @pytest.fixture
-def post_with_published_location(mixer, published_location, published_category):
+def post_with_published_location(
+    mixer, published_location, published_category
+):
     return mixer.blend(
         "blog.Post", location=published_location, category=published_category
     )
 
 
 @pytest.fixture
-def post_with_unpublished_location(mixer, unpublished_location, published_category):
+def post_with_unpublished_location(
+    mixer, unpublished_location, published_category
+):
     return mixer.blend(
         "blog.Post", category=published_category, location=unpublished_location
     )
@@ -134,7 +147,9 @@ def author(mixer):
 
 
 @pytest.fixture
-def many_posts_with_published_locations(mixer, published_locations, published_category):
+def many_posts_with_published_locations(
+    mixer, published_locations, published_category
+):
     return mixer.cycle(N_POSTS_LIMIT * 2).blend(
         "blog.Post",
         category=published_category,

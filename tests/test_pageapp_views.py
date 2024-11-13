@@ -16,5 +16,6 @@ def test_pageapp_views(user_client, page):
         assertTemplateUsed(response, f"pages/{page}.html")
     except AssertionError:
         raise AssertionError(
-            f"Для страницы`/pages/{page}/` " f"используйте шаблон `pages/{page}.html`"
+            f"Для страницы`/pages/{page}/` "
+            f"используйте шаблон `pages/{page}.html`"
         )
